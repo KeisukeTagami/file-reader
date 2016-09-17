@@ -1,5 +1,5 @@
 
-var _KeisukeTagami$file_reader$Native_FileReader = function() {
+var _KeisukeTagami$file-reader$Native_FileReader = function() {
 
     function useReader(method, fileObjectToRead) {
         return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
@@ -16,7 +16,10 @@ var _KeisukeTagami$file_reader$Native_FileReader = function() {
             reader.onload = function(evt) {
                 return callback(
                     _elm_lang$core$Native_Scheduler.succeed(
-                        _elm_lang$core$Native_Utils.Tuple2( fileObjectToRead.lastModifiedDate.toLocaleString(),
+                        // _elm_lang$core$Native_Utils.Tuple2( fileObjectToRead.lastModifiedDate.toLocaleString(),
+                        //                                     evt.target.result
+                        //                                   )
+                        _elm_lang$core$Native_Utils.Tuple2( fileObjectToRead.lastModifiedDate,
                                                             evt.target.result
                                                           )
                     )

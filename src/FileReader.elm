@@ -34,6 +34,8 @@ together with a set of examples.
 
 import Native.FileReader
 
+import Date exposing (Date)
+import Time exposing (Time)
 import Task exposing (Task, fail)
 import Json.Decode exposing
     (Decoder, decodeValue, (:=), andThen, at, oneOf, succeed,
@@ -70,11 +72,11 @@ represented as a String to Elm.
 
     readAsTextFile ref
 -}
-readAsTextFile : FileRef -> Task Error (String, String)
+readAsTextFile : FileRef -> Task Error (Date, String)
 readAsTextFile fileRef =
-    if isTextFile fileRef
-        then Native.FileReader.readAsTextFile fileRef
-        else fail NotTextFile
+    Native.FileReader.readAsTextFile fileRef
+--    if isTextFile fileRef
+--        else fail NotTextFile
 
 {-| Takes a "File" or "Blob" JS object as a Json.Value
 and starts a task to read the contents as an ArrayBuffer.
