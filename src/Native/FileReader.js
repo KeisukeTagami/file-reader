@@ -1,8 +1,10 @@
+// var _user$project$Native_FileReader = function() {
+var _XCompass$ix$Native_FileReader = function() {
 
-var _KeisukeTagami$file-reader$Native_FileReader = function() {
+    var scheduler = _elm_lang$core$Native_Scheduler;
 
     function useReader(method, fileObjectToRead) {
-        return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
+        return scheduler.nativeBinding(function(callback){
 
             /*
              * Test for existence of FileRader using
@@ -15,24 +17,21 @@ var _KeisukeTagami$file-reader$Native_FileReader = function() {
 
             reader.onload = function(evt) {
                 return callback(
-                    _elm_lang$core$Native_Scheduler.succeed(
-                        // _elm_lang$core$Native_Utils.Tuple2( fileObjectToRead.lastModifiedDate.toLocaleString(),
-                        //                                     evt.target.result
-                        //                                   )
-                        _elm_lang$core$Native_Utils.Tuple2( fileObjectToRead.lastModifiedDate,
-                                                            evt.target.result
-                                                          )
+                    scheduler.succeed(
+                    _elm_lang$core$Native_Utils.Tuple2( fileObjectToRead.lastModifiedDate,
+                                                        evt.target.result )
                     )
                 );
+                // scheduler.succeed(evt.target.result));
             };
 
             reader.onerror = function() {
-                return callback(_elm_lang$core$Native_Scheduler.fail({ctor : 'ReadFail'}));
+                return callback(scheduler.fail({ctor : 'ReadFail'}));
             };
 
             // Error if not passed an objectToRead or if it is not a Blob
             if (!fileObjectToRead || !(fileObjectToRead instanceof Blob)) {
-                return callback(_elm_lang$core$Native_Scheduler.fail({ctor : 'NoValidBlob'}));
+                return callback(scheduler.fail({ctor : 'NoValidBlob'}));
             }
 
             return reader[method](fileObjectToRead);
@@ -54,9 +53,17 @@ var _KeisukeTagami$file-reader$Native_FileReader = function() {
         return useReader("readAsDataURL", fileObjectToRead);
     };
 
+    var filePart = function(name, blob) {
+        return {
+            _0: name,
+            _1: blob
+        }
+    };
+
     return {
         readAsTextFile : readAsTextFile,
         readAsArrayBuffer : readAsArrayBuffer,
-        readAsDataUrl: readAsDataUrl
+        readAsDataUrl: readAsDataUrl,
+        filePart: F2(filePart)
     };
 }();
